@@ -1,0 +1,101 @@
+.detailed-product{
+    display: flex;
+    justify-content: space-between;
+    width: 86%;
+    margin: 100px 0;
+    @include respond(phone){
+        width: 100%;
+    }
+    margin: 100px auto;
+    &__attributes{
+        @include respond(phone){
+            text-align: center;
+        }  
+        &  h4{
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        
+        }
+        & > div:nth-of-type(1){
+            & > h3{
+                font-size: 30px;
+                @include respond(phone){
+                    font-size: 20px;
+                }  
+            }
+            & > h3:nth-of-type(1){
+                font-weight: 600;
+            }
+            & > h3:nth-of-type(2){
+                font-weight: 400;
+            }
+        }
+        & > div:nth-of-type(2){
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            &  button{
+                width: 100%;
+                background-color: $color-green;
+                color:  $color-white;
+                font-weight: 600;
+                font-size: 16px;
+                padding: 15px 0;
+                border: none;
+                cursor: pointer;
+            }
+        }
+        &--price-div{
+            & > h3{
+                font-weight: 700;
+                font-size: 24px;
+            }
+        }
+
+        &--description{
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 25.59px;
+            list-style-position: inside;
+        }
+    }
+
+}
+
+
+.photos-detail{
+    display: flex;
+    justify-content: space-between;
+    & > div:nth-of-type(1) {
+        & > img{
+            display: block;
+            height: 100px;
+            @include respond(phone){
+                display: none;
+            }
+            cursor: pointer;
+            &:not(:first-child){
+                margin-top: 10px;
+            }
+
+        }
+    }
+    & > div:nth-of-type(2) {
+        height: fit-content;
+        position: relative;
+        & > img {
+            width: 450px;
+            height: fit-content;
+            @include respond(tab-port){
+                width: 250px;
+            }
+            @include respond(phone){
+                width: 150px;
+            }
+        } 
+    }
+
+}

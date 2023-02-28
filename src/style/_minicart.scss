@@ -1,0 +1,120 @@
+.minicart{
+
+    width: 325px;
+    height: 677px;
+    transform: translateY(100%);
+    background-color: $color-white;
+    padding: 30px 10px;
+    @include respond(phone){
+        width: 250px;
+    }
+
+    & h3 {
+        font-size: 16px;
+    }
+    &__content{
+        height: 80%;
+        & > div:nth-of-type(1){
+            height: 10%;
+            & > h3 {
+                display: inline;
+
+            }
+            & > h3:nth-of-type(1){
+                font-weight: 700;
+            }
+            & > h3:nth-of-type(2){
+                font-weight: 500;
+            }
+        }
+        & > div:nth-of-type(2){
+            overflow-y: scroll;
+            height: 80%;
+        }
+        & > div:nth-of-type(3){
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            & > :nth-of-type(1){
+                font-family: 'Roboto';
+                font-weight: 500;
+            }
+            & > :nth-of-type(2){
+                font-weight: 700;
+            }
+        }
+    }
+    &__btns{
+        height: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        &  button {
+            @include removeDefaultButtonStyle;
+            width: 50%;
+            padding: 15px 0;
+            @include respond(phone){
+                width: 40%;
+            }
+            font-weight: 600;
+            font-size: 14px;
+            height: fit-content;
+            
+        }
+        &  .viewBag-btn{
+            border: 1px solid $color-black;
+            width: 200%;
+            @include respond(phone){
+                width: 150%;
+            }
+        }
+        & > button:nth-of-type(1){
+            background-color:  $color-green;
+            border: 1px solid $color-green;
+            color: $color-white;
+           
+        }
+    }
+}
+
+.minicart-card{
+    display: flex;
+    justify-content: space-between;
+    @include respond(phone){
+        flex-wrap: wrap;
+    }
+    align-items: center;
+    padding: 10px 0;
+    &__content{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        & > h3:nth-of-type(1),
+        & > h3:nth-of-type(2){
+            font-weight: 300;
+        }
+        & > h3:nth-of-type(3){
+            font-weight: 500;
+        }
+    }
+    &__photo-btns-div{
+        display: flex;
+        & > img{
+            width: 100px;
+        }
+    }
+}
+
+.minicart-overlay{
+    background-color: rgba($color: $color-black, $alpha: 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+

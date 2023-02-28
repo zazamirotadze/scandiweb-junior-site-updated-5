@@ -1,0 +1,18 @@
+$color-black:rgba(29, 31, 34, 1);
+$color-green: rgba(94, 206, 123, 1);
+$color-white: rgba(255, 255, 255, 1);
+$color-gray-light: rgba(238, 238, 238, 1);
+$color-gray-light-2:rgba(229, 229, 229, 1);
+$color-gray-middle:  rgba(141, 143, 154, 1);
+$color-transparent: transparent;
+
+:root {
+    --color-green: #{$color-green};
+    --color-black: #{$color-black};
+    --color-transparent: #{$color-transparent};
+    --color-white: #{$color-white};
+    --color-gray-middle: #{$color-gray-middle};
+    --color-gray-light-2: #{$color-gray-light-2};
+}
+
+

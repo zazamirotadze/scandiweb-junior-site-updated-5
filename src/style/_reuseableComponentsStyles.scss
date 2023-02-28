@@ -1,0 +1,123 @@
+/// select options
+.options-component{
+    & > select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        overflow-y: hidden;
+        border: none;
+        outline: none;
+        & > option {
+            display: inline;
+            border: 1px solid $color-black;
+            cursor: pointer;
+            &:not(:first-child){
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+.bigSelect{
+    height: 55px;
+    padding-top: 20px;
+
+}
+.bigOption{
+    padding: 10px 25px;
+    @include respond(tab-port){
+        padding: 8px 14px;
+    }
+    @include respond(phone){
+        padding: 8px 7px;
+    }
+}
+
+.smallSelect{
+    padding-top: 10px;
+    height: 40px;
+}
+.smallOption{
+    padding: 7px 7px;
+}
+.smallAttributeWord{
+    font-size: 14px;
+    margin-bottom: 2px;
+    font-weight: 400;
+}
+//
+
+
+
+
+.colors-component{
+    & > div {
+        & > div{
+            display: inline-block;
+            cursor: pointer;
+
+        }
+    }
+}
+.bigColor{
+    width: 32px;
+    height: 32px;
+    &:not(:first-child){
+        margin-left: 15px;
+    }
+}
+
+.smallColor{
+    width: 16px;
+    height: 16px;
+    &:not(:first-child){
+        margin-left: 5px;
+    }
+
+}
+
+.chackbox-component{
+    & > div{
+        display: flex;
+        gap: 5px;
+        &  div{
+            border: 1px solid $color-black;
+            cursor: pointer;
+        }
+    }
+}
+
+.pls-minus-bt-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    & > button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include removeDefaultButtonStyle;
+        border: 1px solid $color-black;
+    }
+    & > div {
+        text-align: center;
+        font-weight: 500;
+    }
+}
+
+.pls-minus-bt-Big{
+    width: 45px;
+    height: 45px;
+    font-size: 25px;
+}
+.pls-minus-bt-Sm{
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+}
+
+.bigQuantity{
+    font-size: 24px;
+}
+.smQuantity{
+    font-size: 16px;
+}

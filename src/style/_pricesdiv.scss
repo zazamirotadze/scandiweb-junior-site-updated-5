@@ -1,0 +1,22 @@
+
+.options {
+    position: absolute;
+    top: 50px;
+    left: -5px;
+    z-index: 2;
+    &__option{
+        border:  1px solid transparent;
+        padding: 7px 12px;
+        background-color: $color-white;
+        &:hover{
+            background-color: $color-gray-light;
+        }
+        & > span {
+            &:nth-child(2){
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+
