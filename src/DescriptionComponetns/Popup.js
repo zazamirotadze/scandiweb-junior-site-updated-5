@@ -10,7 +10,7 @@ export default class Popup extends Component {
   render() {
     const {  attributes } = this.props.DetailedProductData
     // filter attributes
-    console.log(this.props.allAttributes)
+    
       const selectedAttributes = selectedAttributesFetcher(this.props.allAttributes)
       let attributes1 = JSON.parse(JSON.stringify(attributes)); 
       let attributes2 = JSON.parse(JSON.stringify(attributes))

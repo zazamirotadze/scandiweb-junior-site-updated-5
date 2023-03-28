@@ -6,7 +6,7 @@ import Cart from './CartComponents/Cart';
 import FetchCurrentProduct from './reusableComponents/FetchCurrentProduct';
 import DetailedProduct from "./DescriptionComponetns/DetailedProduct"
 import FiltersComponet from './FiltersComponent/FiltersComponet';
-import { selectedAttributesFetcher, attributesValueArrayCreator, filteredattributesValuesDetails } from './reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
+import { selectedAttributesFetcher, attributesValueArrayCreator} from './reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
 import { withRouter } from 'react-router-dom';
 
 
@@ -181,9 +181,6 @@ class App extends Component {
     const filteredattributesValues = attributesValueArrayCreator(selectedAttributes)
     // url on product list page
     let filteredattributesValuesUrl = filteredattributesValues.join('');
-    // url on products Details Page
-    let filteredattributesValuesUrlDetails = filteredattributesValuesDetails(this.state.DetailedProductData.attributes, filteredattributesValues).join('');
-    //
     return (
       <>
        
@@ -233,7 +230,7 @@ class App extends Component {
               )}
              
           />
-          <Route path={`/details/${filteredattributesValuesUrlDetails}`}
+          <Route path={`/details/:filterParams?`}
               render={() => (
                 <FetchCurrentProduct
                   client={this.props.client}
