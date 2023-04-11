@@ -177,31 +177,60 @@ class App extends Component {
 
 
   render() {
-    const selectedAttributes = selectedAttributesFetcher(this.state.attributes)
-    const filteredattributesValues = attributesValueArrayCreator(selectedAttributes)
-    // url on product list page
-    let filteredattributesValuesUrl = filteredattributesValues.join('');
+  
     return (
       <>
-       
         <Nav 
-          client = {this.props.client} 
-          selectedCategoryName={this.state.selectedCategoryName}
-          selectedCurrencySymbol={this.state.selectedCurrencySymbol}
-          allAttributesId={this.state.allAttributesId}
-          attributes={this.state.attributes}
-          history = {this.props.history}
+            client = {this.props.client} 
+            selectedCategoryName={this.state.selectedCategoryName}
+            selectedCurrencySymbol={this.state.selectedCurrencySymbol}
+            allAttributesId={this.state.allAttributesId}
+            attributes={this.state.attributes}
+            history = {this.props.history}
 
-          selectCategory={this.selectCategory}
-          selectCurrencySymbol = {this.selectCurrencySymbol}
-          fetchAttributes  = {this.fetchAttributes}
-          cartData={this.state.cartData}
-          increaseQuantity={this.increaseQuantity}
-          decreaseQuantity={this.decreaseQuantity}
-          buyProducts={this.buyProducts}
-        /> 
+            selectCategory={this.selectCategory}
+            selectCurrencySymbol = {this.selectCurrencySymbol}
+            fetchAttributes  = {this.fetchAttributes}
+            cartData={this.state.cartData}
+            increaseQuantity={this.increaseQuantity}
+            decreaseQuantity={this.decreaseQuantity}
+            buyProducts={this.buyProducts}
+          /> 
         <Switch>
-          <Route exact path = {`/${filteredattributesValuesUrl}`}
+        <Route path={`/details/:filterParams?`}
+              render={() => (
+                <FetchCurrentProduct
+                  client={this.props.client}
+                  popupIsShown={true}
+                  selectedProductId={this.state.selectedProductId}
+                  selectDetailedProduct={this.selectDetailedProduct}
+                  DetailedProductData={this.state.DetailedProductData}
+                >
+                  <DetailedProduct
+                    DetailedProductData={this.state.DetailedProductData}  
+                    allAttributesId={this.state.allAttributesId}
+                    selectedCurrencySymbol={this.state.selectedCurrencySymbol}
+                    modifyDetailProduct={this.modifyDetailProduct}
+                    addToCart={this.addToCart}
+                    attributes={this.state.attributes}
+                  />
+                </FetchCurrentProduct>
+              )} 
+          />
+           <Route path='/cart'
+            render={() => (
+              <Cart
+                cartData={this.state.cartData}
+                allAttributesId={this.state.allAttributesId}
+                selectedCurrencySymbol={this.state.selectedCurrencySymbol}
+                increaseQuantity={this.increaseQuantity}
+                decreaseQuantity={this.decreaseQuantity}
+                buyProducts={this.buyProducts}
+                
+              />
+            )}
+          />
+          <Route  path = {`/:filterParams?`}
               render={() => (
                 <>
                 <div className='category-word' >{this.state.selectedCategoryName}</div>
@@ -230,39 +259,8 @@ class App extends Component {
               )}
              
           />
-          <Route path={`/details/:filterParams?`}
-              render={() => (
-                <FetchCurrentProduct
-                  client={this.props.client}
-                  popupIsShown={true}
-                  selectedProductId={this.state.selectedProductId}
-                  selectDetailedProduct={this.selectDetailedProduct}
-                  DetailedProductData={this.state.DetailedProductData}
-                >
-                  <DetailedProduct
-                    DetailedProductData={this.state.DetailedProductData}  
-                    allAttributesId={this.state.allAttributesId}
-                    selectedCurrencySymbol={this.state.selectedCurrencySymbol}
-                    modifyDetailProduct={this.modifyDetailProduct}
-                    addToCart={this.addToCart}
-                    attributes={this.state.attributes}
-                  />
-                </FetchCurrentProduct>
-              )} 
-          />
-          <Route path='/cart'
-            render={() => (
-              <Cart
-                cartData={this.state.cartData}
-                allAttributesId={this.state.allAttributesId}
-                selectedCurrencySymbol={this.state.selectedCurrencySymbol}
-                increaseQuantity={this.increaseQuantity}
-                decreaseQuantity={this.decreaseQuantity}
-                buyProducts={this.buyProducts}
-                
-              />
-            )}
-          />
+          
+         
         </Switch>
         
       </>
@@ -271,6 +269,7 @@ class App extends Component {
 }
 
 export default withRouter(App);
+
 
 
 
