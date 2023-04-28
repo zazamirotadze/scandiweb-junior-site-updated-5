@@ -35,7 +35,7 @@ export default class RenderCheckbox extends Component {
                 backgroundColor: selected ? `${colorBlack}` : `${colorWhite}`,
                 color: selected ? `${colorWhite}`  : `${colorBlack}` ,
               }}
-           // onClick={()=> selectMethod && !upperCase && selectMethod(element.id, object.name)} 
+            onClick={()=> selectMethod && !upperCase && selectMethod(element.id, object.name)} 
               
             >
             <input
