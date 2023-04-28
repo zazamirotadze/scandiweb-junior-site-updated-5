@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProductList from './ProductList';
 import GET_CATEGORY from './graphQlqueries/GET_CATEGORY';
-import { fetchAllAttributesAndValues, selectedAttributesFetcher, filterByAttributeName, filterByAttributeValue } from './reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
+import { fetchAllAttributesAndValues, getQueryParams, filterProducts } from './reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
 
 
 class Category extends Component {
@@ -27,23 +27,24 @@ class Category extends Component {
       .then(result => { 
         this.props.selectProducts(result.data.category.products)
         const attributes = fetchAllAttributesAndValues(JSON.parse(JSON.stringify(result.data.category.products)) )
-        let attributesWithIsSelected = attributes;
-        attributesWithIsSelected.forEach(element => element.items.forEach( element => element.isSelected = false ))
-        this.props.selectAttrubutes(attributesWithIsSelected, selectedCategoryName)
+        this.props.selectAttrubutes(attributes, selectedCategoryName)
+        
       });
   }
 
   render() {
+   const currentSearchParams = new URLSearchParams(this.props.location.search)
+   const entries = currentSearchParams.entries()
+   const queryParams = getQueryParams(entries)
+   let filteredProducts  = filterProducts(this.props.products,queryParams ) 
 
-    const selectedAttributes = selectedAttributesFetcher(this.props.attributes)
-    const filteredByAttributeName = filterByAttributeName(selectedAttributes, this.props.products)
-    const filteredByAttributeValue = filterByAttributeValue(selectedAttributes,filteredByAttributeName, this.props.products)
+
 
     return <>
             <ProductList
             client = {this.props.client} 
             key={this.props.selectedCategoryName}
-            data={filteredByAttributeValue} 
+            data={filteredProducts} 
             selectedCurrencySymbol={this.props.selectedCurrencySymbol}
             selectProductId={this.props.selectProductId}
             attributes={this.props.attributes}
@@ -53,6 +54,7 @@ class Category extends Component {
             selectDetailedProduct={this.props.selectDetailedProduct}
             modifyDetailProduct={this.props.modifyDetailProduct}
             addToCart={this.props.addToCart}
+            location={this.props.location}
             />;
           </>
   }

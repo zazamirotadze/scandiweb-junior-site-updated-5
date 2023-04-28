@@ -5,8 +5,8 @@ export default class ProductList extends Component {
   
   render() {
     
-    const renderProducts = this.props.data.map(element =>
-      <Product 
+    const renderProducts = this.props.data.map(element => {
+    return (  <Product 
         key={element.id}
         {...element}
         selectedCurrencySymbol={this.props.selectedCurrencySymbol}
@@ -20,8 +20,10 @@ export default class ProductList extends Component {
         selectDetailedProduct={this.props.selectDetailedProduct}
         modifyDetailProduct={this.props.modifyDetailProduct}
         addToCart={this.props.addToCart}
-      />
-    )
+
+        location={this.props.location}
+      /> )
+    })
     return (
       <div className='products-list' >
         {renderProducts}

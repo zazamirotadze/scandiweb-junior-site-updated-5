@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { colon } from '../reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
+import { colon, getQueryParams, hasQueryParam } from '../reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
 
 export default class RenderColor extends Component {
   render() {
+    const currentSearchParams = this.props.location &&  new URLSearchParams(this.props.location.search);
+    const entries = this.props.location &&  currentSearchParams.entries();
+    const queryParams = getQueryParams(entries);
     // color variebles
     const styles = window.getComputedStyle(document.documentElement);
     const colorGreen = styles.getPropertyValue('--color-green');
@@ -11,13 +14,20 @@ export default class RenderColor extends Component {
      const { attributes, attribute, upperCase, selectMethod } = this.props
      const object = attributes.find(element => element.id === attribute);
      const  renderOptions =  object && object.items.map((element) => {
+        const isSelected = hasQueryParam(queryParams,object.name, element.id)
+        let selected 
+        if(element.isSelected !== undefined){
+          selected = element.isSelected
+        }else{
+          selected = isSelected
+        }   
          return (
  
             <div 
             key={element.id}
             style={{
                 background: `${element.displayValue}`,
-                border: element.isSelected?`3px solid ${colorGreen}`:`3px solid ${colorGrayMiddle}`
+                border: selected?`3px solid ${colorGreen}`:`3px solid ${colorGrayMiddle}`
                 }} 
              className={upperCase ? "bigColor" : "smallColor"}
             onClick={()=> selectMethod && selectMethod(element.id, object.name)} 

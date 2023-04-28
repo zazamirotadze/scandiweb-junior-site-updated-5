@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { givePriceTwoDigits, outOfStockWord, selectedAttributesFetcher, attributesValueArrayCreator, filteredattributesValuesDetails } from './reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
+import { givePriceTwoDigits, outOfStockWord } from './reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
 import quickShopIcon from "./images/Common.png"
 import { Link } from 'react-router-dom';
 import Popup from './DescriptionComponetns/Popup';
@@ -16,17 +16,15 @@ export default class Product extends Component {
   }
   
   render() {
-    const {gallery, brand, name, prices, selectedCurrencySymbol, inStock, id, selectProductId, attributes  } = this.props
+    const {gallery, brand, name, prices, selectedCurrencySymbol, inStock, id, selectProductId, location  } = this.props
     const filteredPrices = prices.filter(price => price.currency.symbol === selectedCurrencySymbol);
     const filteredPriceAmount =  givePriceTwoDigits(filteredPrices[0].amount)
     
-    const selectedAttributes = selectedAttributesFetcher(this.props.allAttributes)
-    const filteredattributesValues = attributesValueArrayCreator(selectedAttributes)
-    // url on products Details Page
-    let filteredattributesValuesUrlDetails = filteredattributesValuesDetails(attributes, filteredattributesValues).join('');
-    //
+    const currentSearchParams =  new URLSearchParams(location.search);
+    
+    const filterParams = currentSearchParams.toString(); 
     return (
-      <Link to={`/details/${filteredattributesValuesUrlDetails}`} className="removeDefaultLinkStyle" >
+      <Link to={`/details/${filterParams}`} className="removeDefaultLinkStyle" >
         <div className='Item-Overlay-div' onClick={()=> selectProductId(id)}   > 
           {! inStock && <>
             <div className='overlay-div'></div>
@@ -64,6 +62,7 @@ export default class Product extends Component {
                   modifyDetailProduct={this.props.modifyDetailProduct}
                   addToCart={this.props.addToCart}
                   closePopup={this.closePopup}
+                  location = {this.props.location}
                 />
               </FetchCurrentProduct>
             }
@@ -72,6 +71,7 @@ export default class Product extends Component {
     )
   }
 }
+
 
 
 

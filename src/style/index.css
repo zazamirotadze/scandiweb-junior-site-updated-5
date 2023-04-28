@@ -195,12 +195,12 @@ body {
 }
 
 .options-component > select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  overflow-y: hidden;
-  border: none;
-  outline: none;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  overflow-y: hidden !important;
+  border: none !important;
+  outline: none !important;
 }
 .options-component > select > option {
   display: inline;
@@ -317,7 +317,7 @@ body {
 
 .detailed-product {
   display: flex;
-  justify-content: space-between;
+  gap: 50px;
   width: 86%;
   margin: 100px 0;
   margin: 100px auto;
@@ -382,6 +382,7 @@ body {
 .photos-detail {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 .photos-detail > div:nth-of-type(1) > img {
   display: block;

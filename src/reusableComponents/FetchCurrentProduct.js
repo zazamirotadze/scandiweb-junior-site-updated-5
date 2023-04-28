@@ -23,12 +23,12 @@ export default class FetchCurrentProduct extends Component {
         fetchPolicy: 'no-cache'
       })
       .then(result =>{ 
-        let modifiedData = result.data.product
+       let modifiedData = result.data.product
         modifiedData.attributes.forEach((attribute) => {
           attribute.items.forEach((item) => {
             item.isSelected = false;
           });
-        });
+        }); 
         this.props.selectDetailedProduct(modifiedData)
       });
   }

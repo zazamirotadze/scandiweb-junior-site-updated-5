@@ -6,7 +6,6 @@ import Cart from './CartComponents/Cart';
 import FetchCurrentProduct from './reusableComponents/FetchCurrentProduct';
 import DetailedProduct from "./DescriptionComponetns/DetailedProduct"
 import FiltersComponet from './FiltersComponent/FiltersComponet';
-import { selectedAttributesFetcher, attributesValueArrayCreator} from './reuseableFunctionsandVariables/reuseableFunctionsAndVariables';
 import { withRouter } from 'react-router-dom';
 
 
@@ -19,17 +18,9 @@ class App extends Component {
     allAttributesId: [],
     DetailedProductData: {},
     cartData:JSON.parse(localStorage.getItem("cartData"))? JSON.parse(localStorage.getItem("cartData")):[],
-    attributes:JSON.parse(localStorage.getItem("attributes"))? JSON.parse(localStorage.getItem("attributes")):[],
+    attributes:[],
 
   }
-  handleFilterChange = (modifiedAttributesData) => {
-      const selectedAttributes = selectedAttributesFetcher(modifiedAttributesData)
-      const filteredattributesValues = attributesValueArrayCreator(selectedAttributes)
-      let filteredattributesValuesUrl = filteredattributesValues.join('');
-      this.props.history.push(`/${filteredattributesValuesUrl}`);
-  }
-  
-
   selectProducts = (productData) => {
     this.setState({products: productData})
   }
@@ -61,28 +52,12 @@ class App extends Component {
   }
   // for filter component
   selectAttrubutes = (data, selectedCategoryName) => {
-      if(JSON.parse(localStorage.getItem("selectedCategoryName")) !== selectedCategoryName){
       this.setState({attributes: data})
-      localStorage.setItem("attributes", JSON.stringify(data))
-     
+      if(JSON.parse(localStorage.getItem("selectedCategoryName")) !== selectedCategoryName){
       // I am  adding here  categoryName into the local storage because I want to indicate when category changes
       localStorage.setItem("selectedCategoryName", JSON.stringify(selectedCategoryName))
-      //
+      // 
     }
-  }
-  modifyFiltersData = (valueId, attributeName) => {
-    let modifiedAttributesData = JSON.parse(JSON.stringify(this.state.attributes));
-    let findAttribute = modifiedAttributesData.find(element => element.name === attributeName);
-   
-    findAttribute.items.forEach(element => {
-      if (element.id === valueId) {
-        element.isSelected = !element.isSelected;
-      }
-    })
-    this.setState({attributes:  modifiedAttributesData})
-    localStorage.setItem("attributes", JSON.stringify( modifiedAttributesData))
-    this.handleFilterChange(modifiedAttributesData)
-    
   }
   //
   modifyDetailProduct = (valueId, attributeName) => {
@@ -95,7 +70,7 @@ class App extends Component {
   }
 
 
-
+  
 
   addToCart = () => {
     // check if we have selected attributes
@@ -177,7 +152,7 @@ class App extends Component {
 
 
   render() {
-  
+    
     return (
       <>
         <Nav 
@@ -187,7 +162,6 @@ class App extends Component {
             allAttributesId={this.state.allAttributesId}
             attributes={this.state.attributes}
             history = {this.props.history}
-
             selectCategory={this.selectCategory}
             selectCurrencySymbol = {this.selectCurrencySymbol}
             fetchAttributes  = {this.fetchAttributes}
@@ -213,6 +187,7 @@ class App extends Component {
                     modifyDetailProduct={this.modifyDetailProduct}
                     addToCart={this.addToCart}
                     attributes={this.state.attributes}
+                    location={this.props.location}
                   />
                 </FetchCurrentProduct>
               )} 
@@ -238,6 +213,9 @@ class App extends Component {
                   attributes={this.state.attributes}
                   allAttributesId={this.state.allAttributesId}
                   modifyFiltersData={this.modifyFiltersData}
+
+                  history={this.props.history}
+                  location={this.props.location}
                 />
                 <Category
                   client = {this.props.client}
@@ -246,7 +224,6 @@ class App extends Component {
                   selectedProductId = {this.state.selectedProductId}
                   attributes={this.state.attributes}
                   products={this.state.products}
-                  
                   selectProductId={this.selectProductId}
                   selectProducts={this.selectProducts}
                   allAttributesId={this.state.allAttributesId}
@@ -255,6 +232,7 @@ class App extends Component {
                   modifyDetailProduct={this.modifyDetailProduct}
                   addToCart={this.addToCart}
                   selectAttrubutes={this.selectAttrubutes}
+                  location={this.props.location}
                 /></>
               )}
              

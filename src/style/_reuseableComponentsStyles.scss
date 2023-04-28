@@ -1,12 +1,13 @@
 /// select options
 .options-component{
     & > select {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        overflow-y: hidden;
-        border: none;
-        outline: none;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        overflow-y: hidden !important;
+        border: none !important;
+        outline: none !important;
+
         & > option {
             display: inline;
             border: 1px solid $color-black;
@@ -121,3 +122,4 @@
 .smQuantity{
     font-size: 16px;
 }
+

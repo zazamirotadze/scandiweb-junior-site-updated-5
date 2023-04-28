@@ -6,9 +6,7 @@ export default class Price extends Component {
       <div className={`${this.props.selectedCurrencySymbol === this.props.symbol ? 'options__option makegrayBackground' :  'options__option'} `} 
         onClick={()=>{
             this.props.selectCurrencySymbol(this.props.symbol)
-            setTimeout(() => {
-                this.props.closeOptions()
-            }, 100);
+            this.props.closeOptions()
         }}
       >
             <span>{this.props.symbol}</span> 

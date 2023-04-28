@@ -3,21 +3,16 @@ import RenderOptions from '../reusableComponents/RenderOptions'
 import RenderColor from '../reusableComponents/RenderColor'
 import RenderCheckbox from '../reusableComponents/RenderCheckbox'
 import PhotosInDetails from './PhotosInDetails'
-import { addToCartWord, givePriceTwoDigits, selectedAttributesFetcher, filterAByB, filterByAttributeValueAndName } from '../reuseableFunctionsandVariables/reuseableFunctionsAndVariables'
+import { addToCartWord, givePriceTwoDigits, handleParamsParsingFromPath, filterAttributes } from '../reuseableFunctionsandVariables/reuseableFunctionsAndVariables'
 export default class DetailedProduct extends Component {
   render() {
     const { gallery, brand, name, attributes, prices, description, inStock  } = this.props.DetailedProductData
     //prices
     const renderPrice = prices.find(element => element.currency.symbol===this.props.selectedCurrencySymbol)
     const filteredPriceAmount =  givePriceTwoDigits(renderPrice.amount)
-    //
-    // filter attributes
-    const selectedAttributes = selectedAttributesFetcher(this.props.attributes)
-    let attributes1 = JSON.parse(JSON.stringify(attributes)); 
-    let attributes2 = JSON.parse(JSON.stringify(attributes))
-    attributes2 = filterByAttributeValueAndName(attributes2, selectedAttributes)
-    const attributes3 =  filterAByB(attributes1,  attributes2)
-
+    const filterParams = handleParamsParsingFromPath(this.props.location.pathname)
+    const filteredAttributes = filterAttributes(filterParams, attributes)
+   
     return (
       <div className='detailed-product' > 
         <PhotosInDetails
@@ -31,34 +26,39 @@ export default class DetailedProduct extends Component {
           </div>
           <div>
             <RenderOptions
-              attributes = {attributes3}
+              attributes = {filteredAttributes}
               attribute = {this.props.allAttributesId[0]}
               upperCase={true}
               selectMethod={this.props.modifyDetailProduct}
+              location={this.props.location}
             />
             <RenderOptions
-              attributes = {attributes3}
+              attributes = {filteredAttributes}
               attribute = {this.props.allAttributesId[2]}
               upperCase={true}
               selectMethod={this.props.modifyDetailProduct}
+              location={this.props.location}
             />
             <RenderColor
-              attributes = {attributes3}
+              attributes = {filteredAttributes}
               attribute = {this.props.allAttributesId[1]}
               upperCase={true}
               selectMethod={this.props.modifyDetailProduct}
+              location={this.props.location}
             />
             <RenderCheckbox
-              attributes = {attributes3}
+              attributes = {filteredAttributes}
               attribute = {this.props.allAttributesId[3]}
               upperCase={true}
               selectMethod={this.props.modifyDetailProduct}
+              location={this.props.location}
             />
             <RenderCheckbox
-              attributes = {attributes3}
+              attributes = {filteredAttributes}
               attribute = {this.props.allAttributesId[4]}
               upperCase={true}
               selectMethod={this.props.modifyDetailProduct}
+              location={this.props.location}
             />
             <div className='detailed-product__attributes--price-div'>
               <h4>{prices[0].__typename.toUpperCase()}:</h4>
@@ -72,4 +72,7 @@ export default class DetailedProduct extends Component {
     )
   }
 }
+
+
+
 
