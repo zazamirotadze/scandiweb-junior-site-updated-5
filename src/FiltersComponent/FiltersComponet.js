@@ -8,7 +8,7 @@ export default class FiltersComponet extends Component {
   selectAttributesAndValues = (idValue, attributeName)=>{
   const currentSearchParams = new URLSearchParams(this.props.location.search);
   const existingValues = currentSearchParams.getAll(attributeName);
-
+    
   if (existingValues.includes(idValue)) {
     // If attribute value already exists, remove it
     currentSearchParams.delete(attributeName);
@@ -35,47 +35,48 @@ export default class FiltersComponet extends Component {
     
 
   }
+
   render() {
+    const renderAttributes =this.props.attributes.map(element=> {
+      
+      const hasYesOrNo = element.items.some(item => item.value === "Yes" || item.value === "No");
+     
+      if(element.type === "swatch"){
+        return <RenderColor
+        key={element.id}
+          attribute = {element}
+          upperCase={true}
+          selectMethod={this.selectAttributesAndValues}
+          location={this.props.location}
+        />
+      }else if (hasYesOrNo){
+        
+            return <RenderCheckbox
+            key={element.id}
+            attribute = {element}
+            upperCase={true}
+            selectMethod={this.selectAttributesAndValues}
+            location={this.props.location}
+          />
+        
+      }
+      else{
+          return <RenderOptions
+          key={element.id}
+          attribute = {element}
+          upperCase={true}
+          selectMethod={this.selectAttributesAndValues}
+          location={this.props.location}
+        />
+      }
+  
+      
+    })
     return (
       <div className='filters' >
         <div>{filterWord}</div>
         <div>
-          <RenderOptions
-            attributes = {this.props.attributes}
-            attribute = {this.props.allAttributesId[0]}
-            upperCase={true}
-            selectMethod={this.selectAttributesAndValues}
-            location={this.props.location}
-          
-            />
-            <RenderOptions
-                attributes = {this.props.attributes}
-                attribute = {this.props.allAttributesId[2]}
-                upperCase={true}
-                selectMethod={this.selectAttributesAndValues}
-                location={this.props.location}
-            />
-            <RenderColor
-                attributes = {this.props.attributes}
-                attribute = {this.props.allAttributesId[1]}
-                upperCase={true}
-                selectMethod={this.selectAttributesAndValues}
-                location={this.props.location}
-            />
-            <RenderCheckbox
-                attributes = {this.props.attributes}
-                attribute = {this.props.allAttributesId[3]}
-                upperCase={true}
-                selectMethod={this.selectAttributesAndValues}
-                location={this.props.location}
-            />
-            <RenderCheckbox
-                attributes = {this.props.attributes}
-                attribute = {this.props.allAttributesId[4]}
-                upperCase={true}
-                selectMethod={this.selectAttributesAndValues}
-                location={this.props.location}
-            />
+          {renderAttributes}
           </div>
       </div>
    

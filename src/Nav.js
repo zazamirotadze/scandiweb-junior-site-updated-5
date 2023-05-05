@@ -48,8 +48,8 @@ export default class Nav extends Component {
                 });
               });
             });
-            const attributeIdsArray = Array.from(attributeIds);
-            this.props.fetchAttributes(attributeIdsArray)
+        //    const attributeIdsArray = Array.from(attributeIds);
+        //    this.props.fetchAttributes(attributeIdsArray)
             //
      
           })
@@ -111,3 +111,4 @@ export default class Nav extends Component {
         )
     }
 }
+

@@ -15,7 +15,6 @@ class App extends Component {
     selectedCategoryName: JSON.parse(localStorage.getItem("selectedCategoryName"))? JSON.parse(localStorage.getItem("selectedCategoryName")): "", 
     selectedCurrencySymbol: JSON.parse(localStorage.getItem("selectedCurrencySymbol"))? JSON.parse(localStorage.getItem("selectedCurrencySymbol")):"",
     selectedProductId: JSON.parse(localStorage.getItem("selectedProductId"))? JSON.parse(localStorage.getItem("selectedProductId")):"",
-    allAttributesId: [],
     DetailedProductData: {},
     cartData:JSON.parse(localStorage.getItem("cartData"))? JSON.parse(localStorage.getItem("cartData")):[],
     attributes:[],
@@ -43,9 +42,6 @@ class App extends Component {
   selectProductId = (id) => {
     this.setState({selectedProductId : id})
     localStorage.setItem("selectedProductId", JSON.stringify(id))
-  }
-  fetchAttributes = (allAttributesId) => {
-    this.setState({allAttributesId})
   }
   selectDetailedProduct = (data) => {
     this.setState({DetailedProductData: data})
@@ -159,7 +155,6 @@ class App extends Component {
             client = {this.props.client} 
             selectedCategoryName={this.state.selectedCategoryName}
             selectedCurrencySymbol={this.state.selectedCurrencySymbol}
-            allAttributesId={this.state.allAttributesId}
             attributes={this.state.attributes}
             history = {this.props.history}
             selectCategory={this.selectCategory}
@@ -182,7 +177,6 @@ class App extends Component {
                 >
                   <DetailedProduct
                     DetailedProductData={this.state.DetailedProductData}  
-                    allAttributesId={this.state.allAttributesId}
                     selectedCurrencySymbol={this.state.selectedCurrencySymbol}
                     modifyDetailProduct={this.modifyDetailProduct}
                     addToCart={this.addToCart}
@@ -196,7 +190,6 @@ class App extends Component {
             render={() => (
               <Cart
                 cartData={this.state.cartData}
-                allAttributesId={this.state.allAttributesId}
                 selectedCurrencySymbol={this.state.selectedCurrencySymbol}
                 increaseQuantity={this.increaseQuantity}
                 decreaseQuantity={this.decreaseQuantity}
@@ -208,15 +201,14 @@ class App extends Component {
           <Route  path = {`/:filterParams?`}
               render={() => (
                 <>
-                <div className='category-word' >{this.state.selectedCategoryName}</div>
-                <FiltersComponet
+                 <div className='category-word' >{this.state.selectedCategoryName}</div>
+             <FiltersComponet
                   attributes={this.state.attributes}
-                  allAttributesId={this.state.allAttributesId}
                   modifyFiltersData={this.modifyFiltersData}
 
                   history={this.props.history}
-                  location={this.props.location}
-                />
+                  location={this.props.location}   
+                /> 
                 <Category
                   client = {this.props.client}
                   selectedCategoryName={this.state.selectedCategoryName}

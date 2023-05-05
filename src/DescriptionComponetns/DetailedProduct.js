@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import RenderOptions from '../reusableComponents/RenderOptions'
 import RenderColor from '../reusableComponents/RenderColor'
-import RenderCheckbox from '../reusableComponents/RenderCheckbox'
 import PhotosInDetails from './PhotosInDetails'
 import { addToCartWord, givePriceTwoDigits, handleParamsParsingFromPath, filterAttributes } from '../reuseableFunctionsandVariables/reuseableFunctionsAndVariables'
 export default class DetailedProduct extends Component {
@@ -12,7 +11,27 @@ export default class DetailedProduct extends Component {
     const filteredPriceAmount =  givePriceTwoDigits(renderPrice.amount)
     const filterParams = handleParamsParsingFromPath(this.props.location.pathname)
     const filteredAttributes = filterAttributes(filterParams, attributes)
-   
+    const renderAttributes =filteredAttributes.map(element=> {
+      if(element.type === "swatch"){
+        return <RenderColor
+        key={element.id}
+          attribute = {element}
+          upperCase={true}
+          selectMethod={this.props.modifyDetailProduct}
+          location={this.props.location}
+        />
+      }else{
+          return <RenderOptions
+          key={element.id}
+          attribute = {element}
+          upperCase={true}
+          selectMethod={this.props.modifyDetailProduct}
+          location={this.props.location}
+        />
+      }
+  
+      
+    })
     return (
       <div className='detailed-product' > 
         <PhotosInDetails
@@ -25,41 +44,7 @@ export default class DetailedProduct extends Component {
             <h3>{name}</h3>
           </div>
           <div>
-            <RenderOptions
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[0]}
-              upperCase={true}
-              selectMethod={this.props.modifyDetailProduct}
-              location={this.props.location}
-            />
-            <RenderOptions
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[2]}
-              upperCase={true}
-              selectMethod={this.props.modifyDetailProduct}
-              location={this.props.location}
-            />
-            <RenderColor
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[1]}
-              upperCase={true}
-              selectMethod={this.props.modifyDetailProduct}
-              location={this.props.location}
-            />
-            <RenderCheckbox
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[3]}
-              upperCase={true}
-              selectMethod={this.props.modifyDetailProduct}
-              location={this.props.location}
-            />
-            <RenderCheckbox
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[4]}
-              upperCase={true}
-              selectMethod={this.props.modifyDetailProduct}
-              location={this.props.location}
-            />
+            {renderAttributes}
             <div className='detailed-product__attributes--price-div'>
               <h4>{prices[0].__typename.toUpperCase()}:</h4>
               <h3>{this.props.selectedCurrencySymbol}{filteredPriceAmount}</h3>

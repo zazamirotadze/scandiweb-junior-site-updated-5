@@ -78,7 +78,8 @@ export function filterProducts( products, queryParams ){
   return filteredProducts
 }
 export function handleParamsParsingFromPath(pathname) {
-  const params = pathname.split("/")[2]; 
+  const pathParts = pathname.split("/");
+  const params = pathParts[pathParts.length - 1]; 
   if (!params) {
     return [];
   }

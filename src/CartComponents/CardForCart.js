@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { givePriceTwoDigits } from '../reuseableFunctionsandVariables/reuseableFunctionsAndVariables'
 import RenderOptions from '../reusableComponents/RenderOptions'
 import RenderColor from '../reusableComponents/RenderColor'
-import RenderCheckbox from '../reusableComponents/RenderCheckbox'
 import PhotosInCart from './PhotosInCart'
 import PlusMinusBtnsComp from '../reusableComponents/PlusMinusBtnsComp'
 export default class CardForCart extends Component {
@@ -13,42 +12,29 @@ export default class CardForCart extends Component {
     const renderPrice = prices.find(element => element.currency.symbol===this.props.selectedCurrencySymbol)
     const filteredPriceAmount =  givePriceTwoDigits(renderPrice.amount)
     //
+    const renderAttributes =attributes.map(element=> {
+      if(element.type === "swatch"){
+        return <RenderColor
+        key={element.id}
+          attribute = {element}
+          upperCase={true}
+          selectMethod={undefined}
+        />
+      }else{
+          return <RenderOptions
+          key={element.id}
+          attribute = {element}
+          upperCase={true}
+          selectMethod={undefined}
+        />
+      }})
     return (
       <div className='cart__card' >
         <div className='cart__card-attributes' >
           <h3>{brand}</h3>
           <h3>{name}</h3>
           <h4>{this.props.selectedCurrencySymbol}{filteredPriceAmount}</h4>
-          <RenderOptions
-            attributes = {attributes}
-            attribute = {this.props.allAttributesId[0]}
-            upperCase={true}
-            selectMethod={undefined}
-          />
-          <RenderOptions
-            attributes = {attributes}
-            attribute = {this.props.allAttributesId[2]}
-            upperCase={true}
-            selectMethod={undefined}
-          />
-          <RenderColor
-            attributes = {attributes}
-            attribute = {this.props.allAttributesId[1]}
-            upperCase={true}
-            selectMethod={undefined}
-          />
-          <RenderCheckbox
-            attributes = {attributes}
-            attribute = {this.props.allAttributesId[3]}
-            upperCase={true}
-            selectMethod={undefined}
-          />
-          <RenderCheckbox
-            attributes = {attributes}
-            attribute = {this.props.allAttributesId[4]}
-            upperCase={true}
-            selectMethod={undefined}
-          />
+          {renderAttributes}
         </div>
         <div className='cart__card-btnsphotos' >
           <PlusMinusBtnsComp

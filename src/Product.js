@@ -23,6 +23,7 @@ export default class Product extends Component {
     const currentSearchParams =  new URLSearchParams(location.search);
     
     const filterParams = currentSearchParams.toString(); 
+    
     return (
       <Link to={`/details/${filterParams}`} className="removeDefaultLinkStyle" >
         <div className='Item-Overlay-div' onClick={()=> selectProductId(id)}   > 

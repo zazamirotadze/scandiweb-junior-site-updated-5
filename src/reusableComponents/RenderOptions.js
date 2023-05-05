@@ -10,14 +10,13 @@ export default class RenderOptions extends Component {
     const queryParams = getQueryParams(entries);  
     // color variebles
     const styles = window.getComputedStyle(document.documentElement);
-    const colorBlack = styles.getPropertyValue('--color-black');
+    const colorBlack = styles.getPropertyValue('--color-black') ;
     const colorWhite = styles.getPropertyValue('--color-white');
     //
 
-    const { attributes,  attribute, upperCase, selectMethod} = this.props
-    const object = attributes.find(element => element.id === attribute);
-    const renderOptions = object && object.items.map((element) => {
-      const isSelected = hasQueryParam(queryParams,object.name, element.id)
+    const { attribute, /* attribute,*/ upperCase, selectMethod} = this.props
+    const renderOptions = attribute && attribute.items.map((element) => {
+      const isSelected = hasQueryParam(queryParams,attribute.name, element.id)
       let selected 
       if(element.isSelected !== undefined){
         selected = element.isSelected
@@ -30,24 +29,27 @@ export default class RenderOptions extends Component {
           key={element.id}
           className={upperCase ? "bigOption" : "smallOption"}
           style={{
-            backgroundColor: selected? `${colorBlack}` : `${colorWhite}`,
+            backgroundColor: selected? `${colorBlack} ` : `${colorWhite}`,
             color: selected ? `${colorWhite}` : `${colorBlack}`
           }}
         onClick={()=> { 
-            selectMethod && selectMethod(element.id, object.name)
+            selectMethod && selectMethod(element.id, attribute.name)
           }} 
+          
+        
         > 
           {element.value} 
         </option>
       )
-    });
+    })
     return (
       <>
      {renderOptions ? 
         <div className='options-component '>
-            <h4 className={upperCase ? undefined : "smallAttributeWord"}>{upperCase? `${object.name.toUpperCase()}${colon}` : `${object.name}${colon}`} </h4>
-            <select  className={upperCase ? "bigSelect" : "smallSelect"} key={object.items.filter(e =>  e.isSelected).map(e => e.id).join(',')} 
-            size={object.items.length === 1 ? object.items.length + 1 : object.items.length}        
+            <h4 className={upperCase ? undefined : "smallAttributeWord"}>{upperCase? `${attribute.name.toUpperCase()}${colon}` : `${attribute.name}${colon}`} </h4>
+            <select  className={upperCase ? "bigSelect" : "smallSelect"} key={attribute.items.filter(e =>  e.isSelected).map(e => e.id).join(',')} 
+            size={attribute.items.length === 1 ? attribute.items.length + 1 : attribute.items.length}  
+            
             >
               {renderOptions}
             </select>

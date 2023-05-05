@@ -11,10 +11,10 @@ export default class RenderColor extends Component {
     const colorGreen = styles.getPropertyValue('--color-green');
     const colorGrayMiddle = styles.getPropertyValue('--color-gray-middle');
     //
-     const { attributes, attribute, upperCase, selectMethod } = this.props
-     const object = attributes.find(element => element.id === attribute);
-     const  renderOptions =  object && object.items.map((element) => {
-        const isSelected = hasQueryParam(queryParams,object.name, element.id)
+     const { attribute, upperCase, selectMethod } = this.props
+    // const object = attributes.find(element => element.id === attribute);
+     const  renderOptions =  attribute && attribute.items.map((element) => {
+        const isSelected = hasQueryParam(queryParams,attribute.name, element.id)
         let selected 
         if(element.isSelected !== undefined){
           selected = element.isSelected
@@ -30,7 +30,7 @@ export default class RenderColor extends Component {
                 border: selected?`3px solid ${colorGreen}`:`3px solid ${colorGrayMiddle}`
                 }} 
              className={upperCase ? "bigColor" : "smallColor"}
-            onClick={()=> selectMethod && selectMethod(element.id, object.name)} 
+            onClick={()=> selectMethod && selectMethod(element.id, attribute.name)} 
             > 
             
             </div>
@@ -43,7 +43,7 @@ export default class RenderColor extends Component {
         <>
           {renderOptions ? 
           <div className='colors-component' >
-            <h4 className={upperCase ? undefined : "smallAttributeWord"}>{upperCase? `${object.name.toUpperCase()}${colon}` : `${object.name}${colon}`}</h4>
+            <h4 className={upperCase ? undefined : "smallAttributeWord"}>{upperCase? `${attribute.name.toUpperCase()}${colon}` : `${attribute.name}${colon}`}</h4>
               <div>
                   {renderOptions}
               </div>

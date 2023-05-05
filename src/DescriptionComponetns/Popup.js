@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import RenderCheckbox from '../reusableComponents/RenderCheckbox';
 import RenderOptions from '../reusableComponents/RenderOptions';
 import RenderColor from '../reusableComponents/RenderColor';
 import OutsideCloser from '../reusableComponents/OutsideCloser';
@@ -16,6 +15,25 @@ export default class Popup extends Component {
     const entries = currentSearchParams.entries();
     const queryParams = getQueryParams(entries);  
     const filteredAttributes = filterAttributes(queryParams, attributes)
+    const renderAttributes =filteredAttributes.map(element=> {
+      if(element.type === "swatch"){
+        return <RenderColor
+        key={element.id}
+          attribute = {element}
+          upperCase={false}
+          selectMethod={this.props.modifyDetailProduct}
+        />
+      }else{
+          return <RenderOptions
+          key={element.id}
+          attribute = {element}
+          upperCase={false}
+          selectMethod={this.props.modifyDetailProduct}
+        />
+      }
+  
+      
+    })
     return (
       <OutsideCloser functionMethod={this.props.closePopup}>
       <div className='popup givebordershadow'
@@ -25,36 +43,7 @@ export default class Popup extends Component {
           }} 
        >
           <div>
-            <RenderOptions
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[0]}
-              upperCase={false}
-              selectMethod={this.props.modifyDetailProduct}
-            />
-            <RenderOptions
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[2]}
-              upperCase={false}
-              selectMethod={this.props.modifyDetailProduct}
-            />
-            <RenderColor
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[1]}
-              upperCase={false}
-              selectMethod={this.props.modifyDetailProduct}
-            />
-            <RenderCheckbox
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[3]}
-              upperCase={false}
-              selectMethod={this.props.modifyDetailProduct}
-            />
-            <RenderCheckbox
-              attributes = {filteredAttributes}
-              attribute = {this.props.allAttributesId[4]}
-              upperCase={false}
-              selectMethod={this.props.modifyDetailProduct}
-            />
+            {renderAttributes}
           </div>
           <button onClick={()=>{
             this.props.addToCart()
