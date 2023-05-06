@@ -14,7 +14,6 @@ class App extends Component {
     products: [],
     selectedCategoryName: JSON.parse(localStorage.getItem("selectedCategoryName"))? JSON.parse(localStorage.getItem("selectedCategoryName")): "", 
     selectedCurrencySymbol: JSON.parse(localStorage.getItem("selectedCurrencySymbol"))? JSON.parse(localStorage.getItem("selectedCurrencySymbol")):"",
-    selectedProductId: JSON.parse(localStorage.getItem("selectedProductId"))? JSON.parse(localStorage.getItem("selectedProductId")):"",
     DetailedProductData: {},
     cartData:JSON.parse(localStorage.getItem("cartData"))? JSON.parse(localStorage.getItem("cartData")):[],
     attributes:[],
@@ -39,10 +38,7 @@ class App extends Component {
     this.setState({selectedCurrencySymbol})
     localStorage.setItem("selectedCurrencySymbol", JSON.stringify(selectedCurrencySymbol))
   }
-  selectProductId = (id) => {
-    this.setState({selectedProductId : id})
-    localStorage.setItem("selectedProductId", JSON.stringify(id))
-  }
+  
   selectDetailedProduct = (data) => {
     this.setState({DetailedProductData: data})
   }
@@ -171,9 +167,11 @@ class App extends Component {
                 <FetchCurrentProduct
                   client={this.props.client}
                   popupIsShown={true}
-                  selectedProductId={this.state.selectedProductId}
+             
                   selectDetailedProduct={this.selectDetailedProduct}
                   DetailedProductData={this.state.DetailedProductData}
+                  history={this.props.history}
+                  location={this.props.location}
                 >
                   <DetailedProduct
                     DetailedProductData={this.state.DetailedProductData}  
@@ -198,7 +196,7 @@ class App extends Component {
               />
             )}
           />
-          <Route  path = {`/:filterParams?`}
+          <Route  path = {`/:productId?/:filterParams?`}
               render={() => (
                 <>
                  <div className='category-word' >{this.state.selectedCategoryName}</div>
@@ -213,10 +211,10 @@ class App extends Component {
                   client = {this.props.client}
                   selectedCategoryName={this.state.selectedCategoryName}
                   selectedCurrencySymbol={this.state.selectedCurrencySymbol}
-                  selectedProductId = {this.state.selectedProductId}
+                
                   attributes={this.state.attributes}
                   products={this.state.products}
-                  selectProductId={this.selectProductId}
+        
                   selectProducts={this.selectProducts}
                   allAttributesId={this.state.allAttributesId}
                   selectDetailedProduct={this.selectDetailedProduct}
@@ -225,6 +223,7 @@ class App extends Component {
                   addToCart={this.addToCart}
                   selectAttrubutes={this.selectAttrubutes}
                   location={this.props.location}
+                  history={this.props.history}
                 /></>
               )}
              

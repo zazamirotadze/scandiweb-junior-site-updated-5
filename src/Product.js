@@ -13,10 +13,20 @@ export default class Product extends Component {
   }
   closePopup = () => {
     this.setState({popupIsShown: false})
+    this.removeproducIdFromPath()
+  }
+  removeproducIdFromPath = () => {
+    const { history, location } = this.props;
+    const productId = location.pathname.split('/')[1];
+    const newPathname = location.pathname.replace(`/${productId}`, '');
+    history.replace({
+      pathname: newPathname,
+      search: location.search
+    });
   }
   
   render() {
-    const {gallery, brand, name, prices, selectedCurrencySymbol, inStock, id, selectProductId, location  } = this.props
+    const {gallery, brand, name, prices, selectedCurrencySymbol, inStock, id, location  } = this.props
     const filteredPrices = prices.filter(price => price.currency.symbol === selectedCurrencySymbol);
     const filteredPriceAmount =  givePriceTwoDigits(filteredPrices[0].amount)
     
@@ -25,8 +35,8 @@ export default class Product extends Component {
     const filterParams = currentSearchParams.toString(); 
     
     return (
-      <Link to={`/details/${filterParams}`} className="removeDefaultLinkStyle" >
-        <div className='Item-Overlay-div' onClick={()=> selectProductId(id)}   > 
+      <Link to={`/details/${id}/${filterParams}`} className="removeDefaultLinkStyle" >
+        <div className='Item-Overlay-div'   > 
           {! inStock && <>
             <div className='overlay-div'></div>
             <div className='outOfstockWordDiv'>{outOfStockWord}</div>
@@ -37,7 +47,14 @@ export default class Product extends Component {
                 e.stopPropagation(); 
                 e.preventDefault();
                 this.openPopup()
-                selectProductId(id)
+              
+                const { history, location } = this.props;
+                const urlParams = new URLSearchParams(location.search);
+                const search = urlParams.toString();
+                history.push({
+                  pathname: `/${id}/`,
+                  search
+                });
               }} 
             />}
             <div className='product' >
@@ -54,6 +71,7 @@ export default class Product extends Component {
                 selectedProductId={this.props.selectedProductId}
                 selectDetailedProduct={this.props.selectDetailedProduct}
                 DetailedProductData={this.props.DetailedProductData}
+                location = {this.props.location}
               >
                 <Popup
                   DetailedProductData={this.props.DetailedProductData}  

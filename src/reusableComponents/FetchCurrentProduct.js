@@ -5,21 +5,23 @@ export default class FetchCurrentProduct extends Component {
 
     componentDidMount() {
         if(this.props.popupIsShown){
-            this.fetchCategoryData(this.props.selectedProductId);
+            this.fetchCategoryData();
         } 
     }
     
-    componentDidUpdate(prevProps) {
-        if (this.props.selectedProductId !== prevProps.selectedProductId && this.props.popupIsShown) {
-            this.fetchCategoryData(this.props.selectedProductId);
-        }
+   
+    
+  fetchCategoryData = () => {
+    const { location } = this.props;
+    let productId = location.pathname.split('/')[1];
+    if(productId === "details"){
+      productId = location.pathname.split('/')[2];
     }
     
-  fetchCategoryData = (selectedProductId) => {
     this.props.client
       .query({
         query: GET_PRODUCT,
-        variables: { id:  selectedProductId },
+        variables: { id:  productId },
         fetchPolicy: 'no-cache'
       })
       .then(result =>{ 

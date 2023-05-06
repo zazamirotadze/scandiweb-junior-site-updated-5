@@ -46,7 +46,6 @@ class Category extends Component {
             key={this.props.selectedCategoryName}
             data={filteredProducts} 
             selectedCurrencySymbol={this.props.selectedCurrencySymbol}
-            selectProductId={this.props.selectProductId}
             attributes={this.props.attributes}
             allAttributesId={this.props.allAttributesId}
             selectedProductId = {this.props.selectedProductId}
@@ -55,6 +54,7 @@ class Category extends Component {
             modifyDetailProduct={this.props.modifyDetailProduct}
             addToCart={this.props.addToCart}
             location={this.props.location}
+            history={this.props.history}
             />;
           </>
   }

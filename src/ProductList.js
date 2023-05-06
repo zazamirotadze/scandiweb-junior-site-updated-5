@@ -10,7 +10,6 @@ export default class ProductList extends Component {
         key={element.id}
         {...element}
         selectedCurrencySymbol={this.props.selectedCurrencySymbol}
-        selectProductId={this.props.selectProductId}
         selectedProductId = {this.props.selectedProductId}
         client = {this.props.client} 
         allAttributes={this.props.attributes}
@@ -20,7 +19,7 @@ export default class ProductList extends Component {
         selectDetailedProduct={this.props.selectDetailedProduct}
         modifyDetailProduct={this.props.modifyDetailProduct}
         addToCart={this.props.addToCart}
-
+        history={this.props.history}
         location={this.props.location}
       /> )
     })
