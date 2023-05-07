@@ -47,9 +47,11 @@ export default class RenderOptions extends Component {
      {renderOptions ? 
         <div className='options-component '>
             <h4 className={upperCase ? undefined : "smallAttributeWord"}>{upperCase? `${attribute.name.toUpperCase()}${colon}` : `${attribute.name}${colon}`} </h4>
-            <select  className={upperCase ? "bigSelect" : "smallSelect"} key={attribute.items.filter(e =>  e.isSelected).map(e => e.id).join(',')} 
+            <select  className={upperCase ? "bigSelect" : "smallSelect"}  
             size={attribute.items.length === 1 ? attribute.items.length + 1 : attribute.items.length}  
-            
+            onChange={(event) => {
+              event.target.value = ''; 
+            }}
             >
               {renderOptions}
             </select>

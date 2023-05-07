@@ -211,6 +211,10 @@ body {
   margin-left: 5px;
 }
 
+select option:checked {
+  background-color: black !important;
+}
+
 .bigSelect {
   height: 55px;
   padding-top: 20px;
