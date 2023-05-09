@@ -72,6 +72,8 @@
 }
 
 body {
+  margin: 0 auto;
+  max-width: 1500px;
   overflow-y: overlay;
   font-family: "Raleway", sans-serif;
   background-color: rgb(255, 255, 255);
